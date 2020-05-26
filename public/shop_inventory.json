@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Razer Keyboard",
+    "cost": 999.99
+  },
+  {
+    "id": 2,
+    "name": "Mouse",
+    "cost": 100
+  },
+  {
+    "id": 3,
+    "name": "GTX2002 Graphics Card",
+    "cost": 3000
+  },
+  {
+      "id":4,
+      "name":"Gaming Monitor",
+      "cost":4000
+  }
+]

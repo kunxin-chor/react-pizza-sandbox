@@ -1,26 +1,54 @@
 import React from "react";
 import "./styles.css";
-import Counter from "./Counter.js";
 import "bulma/css/bulma.min.css";
-import guitar from "./acoustic_guitar.jpg";
+import axios from 'axios'
 
-const inlineStyle = {
-  color: "red",
-  border: "1px black solid"
-};
+export default class App extends React.Component {
+    state = {
+        inventory:[]
+    }
 
-export default function App() {
-  return (
-    <div className="container is-fluid">
-      <h1 className="title">Hello CodeSandbox</h1>
-      <Counter />
-      <h2>Start editing to see some magic happen!</h2>
-      <div style={inlineStyle}>Say Hello Again</div>
-      <div style={{ color: "green", fontFamily: "Verdana" }}>
-        Hello World Once More
-      </div>
-      <img src={require("./band.jpg")} alt="band" />
-      <img src={guitar} alt="guitar" />
-    </div>
-  );
+    renderList() {
+        let final = [];
+        for (let product of this.state.inventory) {
+            final.push(<li class="list-item">
+                {product.name} (${product.cost})
+            </li>);
+
+        }
+        return final;
+    }
+
+    // mark the function as asynchronous
+    doLoadData = async () => {
+        let response = await axios.get('shop_inventory.json');
+        let inventory = response.data;
+        this.setState({
+            inventory:inventory
+        })
+        
+    }
+
+
+    getRandomQuote = async () => {
+        let response = await axios.get('https://programming-quotes-api.herokuapp.com/quotes/random')
+        console.log(response);
+        let quote = response.data;
+        console.log(quote);
+        // let author = 
+    }
+
+    render() {
+          return (
+            <div className="container is-fluid">
+                <h1 className="title">Our Products</h1>
+                <button onClick={this.doLoadData}>Load data</button>
+                <button onClick={this.getRandomQuote}>Load data</button>
+                <ul className="list">
+                    {this.renderList()}
+                </ul>
+            </div>
+        );
+    }
+
 }
